@@ -2,15 +2,17 @@ import tkinter
 import os
 import time
 
-
+#Through that function we are gatting status of bettary and also the bettry percentage
+#Here we are using os module to use bash commands
 def getBat():
-	
 	status = os.popen("upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state | awk '{print $2}'").read()	
 	precentage= os.system("upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | awk '{print $2}' | sed 's/%//g'")
 	percentage = os.popen("upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | awk '{print $2}' | sed 's/%//g'").read()	
 	return int(percentage),status 
 
-
+#this is basiclly a ui height like we have some space in between the battery design the ractangle
+#so we are fillig it with some red,yellow and green
+#its depandent on the bettarys percentage
 def height(bat):
 
 	if bat <= 15 and bat >0 :
@@ -55,6 +57,7 @@ topbox = C.create_polygon(105,50,145,50,145,70,105,70, fill="white")
 
 bat = C.create_polygon(90,h,160,h,160,215,90,215, fill=c)
 C.pack()
+#this loop frequently checking battery status
 while True:
 	a,s=getBat()
 	print(s[0])
